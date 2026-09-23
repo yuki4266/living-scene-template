@@ -1,0 +1,25 @@
+# Living scene: repaints header.svg to match the real weather where you live,
+# and draws the seasonal garden footer. https://github.com/yuki4266/living-scene
+name: Living scene
+
+on:
+  schedule:
+    - cron: "23 */3 * * *"   # every three hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: yuki4266/living-scene@v1
+        with:
+          lat: "40.7128"          # ← your latitude  (right-click your city in Google Maps)
+          lon: "-74.0060"         # ← your longitude
+          tz: America/New_York    # ← your IANA timezone
+          # hemisphere: south     # uncomment below the equator
+          header: header.svg
+          sky: "false"
